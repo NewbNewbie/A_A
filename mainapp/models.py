@@ -13,7 +13,7 @@ class China_Item(models.Model):
 	# memo = JSONField(default={}, dump_kwargs={'ensure_ascii': False})
 
 	def __str__(self):
-		return "{}".format(self.id)
+		return "{}".format(self.china_id)
 
 
 class Korea_Item(models.Model):
@@ -32,7 +32,7 @@ class Korea_Item(models.Model):
 	# memo = JSONField(default={}, dump_kwargs={'ensure_ascii': False})
 
 	def __str__(self):
-		return "{}".format(self.id)
+		return "{}".format(self.korea_id)
 
 
 
