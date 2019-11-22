@@ -50,14 +50,34 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 mx-auto">
-					<h2>About this page</h2>
-					<p class="lead">This is a great place to talk about your webpage. This template is purposefully unstyled so you can use it as a boilerplate or starting point for you own landing page designs! This template features:</p>
-					<ul>
-						<li>Clickable nav links that smooth scroll to page sections</li>
-						<li>Responsive behavior when clicking nav links perfect for a one page website</li>
-						<li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>
-						<li>Minimal custom CSS so you are free to explore your own unique design options</li>
-					</ul>
+					
+						<form class="navbar-form navbar-left">
+							<div class="form-group">
+								시작 월
+								<input type="month" class="form-control" name="startDate" id="">
+								종료 월
+								<input type="month" class="form-control" name="endDate" id="">
+								도심구분
+								<select name="cityGubun" class="form-control" id="">
+									<option value="">전체</option>
+									<option value="도심">도심</option>
+									<option value="읍면">읍면</option>
+								</select>
+								업종
+								<select name="marketType" class="form-control" id="">
+									<option value="전체">전체</option>
+									<option value="교통">교통</option>
+									<option value="기타">기타</option>
+									<option value="소매">소매</option>
+									<option value="쇼핑">쇼핑</option>
+									<option value="숙박">숙박</option>
+									<option value="유흥">유흥</option>
+									<option value="문화/레져">문화/레져</option>
+									<option value="식음료">식음료</option>
+								</select>
+							</div>
+							<button type="submit" class="btn btn-default">Submit</button>
+						</form>
 				</div>
 			</div>
 		</div>
