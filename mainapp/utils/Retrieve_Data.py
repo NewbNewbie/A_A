@@ -2,6 +2,7 @@ import requests
 import json
 import pandas as pd
 import numpy as np
+import time
 
 def getKoreanData(startDate, endDate, sido, sigungu, cityGubun, marketType, userType, ageGroup, gender):
 	params = {
@@ -14,14 +15,21 @@ def getKoreanData(startDate, endDate, sido, sigungu, cityGubun, marketType, user
 		'userType' : userType,
 		'ageGroup' : ageGroup,
 		'gender' : gender,
+		'limit' : 100,
 		'number' : 1
 	}
 
 	collected_data = pd.DataFrame()
 
+	time.sleep(10)
+
 	while(True):
-		result = requests.get('https://gw.jejudatahub.net/api/proxy/072040e53b1f11e9ab958f5bbd84cea8/3d7197d6a6b4449db197d6a6b4c49d8b', params=params)
-		ret = json.loads(result.text)
+		try:
+			result = requests.get('https://gw.jejudatahub.net/api/proxy/072040e53b1f11e9ab958f5bbd84cea8/7669ab00eb7449bba9ab00eb74e9bbd3', params=params)
+			ret = json.loads(result.text)
+		except Exception as E:
+			print (E)
+			break
 		print(ret)
 		if(ret['hasMore']):
 			params['number'] += 1
@@ -33,7 +41,6 @@ def getKoreanData(startDate, endDate, sido, sigungu, cityGubun, marketType, user
 
 
 		print(collected_data)
-		break
 
 	return collected_data
 
@@ -45,12 +52,33 @@ def getChineseData(startDate, endDate, sido, sigungu, cityGubun, marketType):
 		'sido' : sido,
 		'sigungu' : sigungu,
 		'cityGubun' : cityGubun,
-		'marketType' : marketType
+		'marketType' : marketType,
+		'limit' : 100,
+		'number' : 1
 	}
 
-	result = requests.get('https://gw.jejudatahub.net/api/proxy/94e2c32f3b1d11e9ab958f5bbd84cea8/3d7197d6a6b4449db197d6a6b4c49d8b', params=params)
-	ret = json.loads(result.text)
-	print(ret)
+	collected_data = pd.DataFrame()
+
+	while(True):
+		try:
+			result = requests.get('https://gw.jejudatahub.net/api/proxy/94e2c32f3b1d11e9ab958f5bbd84cea8/7669ab00eb7449bba9ab00eb74e9bbd3', params=params)
+			ret = json.loads(result.text)
+		except Exception as E:
+			print (E)
+			break
+		print(ret)
+		if(ret['hasMore']):
+			params['number'] += 1
+		else:
+			break
+
+		temp_df = pd.DataFrame.from_dict(ret['data'])
+		collected_data = collected_data.append(temp_df)
+
+
+		print(collected_data)
+
+	return collected_data
 
 
 if __name__ == "__main__":

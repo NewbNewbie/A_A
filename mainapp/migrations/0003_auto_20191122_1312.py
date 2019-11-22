@@ -2,31 +2,6 @@
 
 from django.db import migrations
 
-import mainapp.utils.Retrieve_Data as RD
-
-def forwards_func(apps, schema_editor):
-	# We get the model from the versioned app registry;
-	# if we directly import it, it'll be the wrong version
-
-	ret = RD.getKoreanData("200001","201911",None,None,None,None,None,None,None)
-
-
-
-	Items = apps.get_model("mainapp", "China_Item")
-	db_alias = schema_editor.connection.alias
-
-
-	Item_Lists = []
-	for index, row in ret.iterrows():
-		Item_Lists.append(Items(sido=row['sido'],sigungu=row['sigungu'],cityGubun=row['cityGubun'],marketType=row['marketType'], userType=row['userType'], ageGroup=row['ageGroup'], \
-		gender=row['gender'], dtYearMonth=row['dtYearMonth'],  userCount=row['userCount'],  useCount=row['useCount'], useCost=row['useCost']))
-
-		print(row['sido'], row['sigungu'], row['cityGubun'], row['marketType'], row['userType'], row['ageGroup'], row['gender'], \
-		row['dtYearMonth'], row['userCount'], row['useCount'], row['useCost'])
-
-	Items.objects.using(db_alias).bulk_create(Item_Lists)
-
-
 class Migration(migrations.Migration):
 
 	dependencies = [
@@ -34,5 +9,4 @@ class Migration(migrations.Migration):
 	]
 
 	operations = [
-		migrations.RunPython(forwards_func),
 	]
